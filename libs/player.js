@@ -272,6 +272,11 @@ export default class Player extends EventEmitter {
     this._list.push(latest)
   }
 
+  reset() {
+    this._list = []
+    this.history = null
+  }
+
   /**
    * [Download a mp3 file from its URI]
    * @param  {String}   src      [the src URI of mp3 file]
