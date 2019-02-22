@@ -41,7 +41,7 @@ export default class Player extends EventEmitter {
     // Inherits eventEmitter
     super()
 
-    this.history = []
+    this.history = null
     this.paused = false
     this.options = _.extend(defaults, params)
     this._list = format(songs || [], this.options.src)
@@ -73,10 +73,7 @@ export default class Player extends EventEmitter {
 
   // Get the lastest playing song
   get playing() {
-    if (!this.history.length)
-      return null
-
-    return this._list[this.history[this.history.length - 1]]
+    return this.history
   }
 
   /**
@@ -121,7 +118,7 @@ export default class Player extends EventEmitter {
         }
 
         self.emit('playing', song)
-        self.history.push(index)
+        self.history = self._list[index]
 
         // This is where the song acturaly played end,
         // can't trigger playend event here cause
@@ -215,9 +212,11 @@ export default class Player extends EventEmitter {
   next() {
     let list = this._list
     let current = this.playing
-    let nextIndex = this.options.shuffle ? 
-      chooseRandom(_.difference(list, [current._id])) :
-      current._id + 1
+    let nextIndex = !current ?
+      0 :
+      this.options.shuffle ?
+        chooseRandom(_.difference(list, [current._id])) :
+        current._id + 1
 
     if (nextIndex >= list.length) {
       this.emit('error', 'No next song was found')
