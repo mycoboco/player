@@ -11,7 +11,7 @@ import path from 'path'
 import util from "util"
 import { http, https } from 'follow-redirects'
 import home from 'home'
-import lame from 'lame'
+import lame from '@suldashi/lame'
 import _ from 'underscore'
 import Speaker from 'speaker'
 import PoolStream from 'pool_stream'
