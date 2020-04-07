@@ -40,9 +40,9 @@ var _home = require('home');
 
 var _home2 = _interopRequireDefault(_home);
 
-var _lame = require('lame');
+var _suldashiLame = require('@suldashi/lame');
 
-var _lame2 = _interopRequireDefault(_lame);
+var _suldashiLame2 = _interopRequireDefault(_suldashiLame);
 
 var _underscore = require('underscore');
 
@@ -145,7 +145,7 @@ var Player = (function (_EventEmitter) {
           if (!err) song.meta = data;
         });
 
-        _this.lameStream = new _lame2['default'].Decoder();
+        _this.lameStream = new _suldashiLame2['default'].Decoder();
 
         pool.pipe(_this.lameStream).once('format', onPlaying).once('finish', function () {
           return _this.next();
